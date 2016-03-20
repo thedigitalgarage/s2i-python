@@ -17,6 +17,8 @@ LABEL io.k8s.description="Platform for building and running Python 2.7 applicati
 
 USER root
 
+RUN yum -y update
+
 RUN yum install -y centos-release-scl \
     python27 \
     python27-python-devel \
@@ -25,7 +27,9 @@ RUN yum install -y centos-release-scl \
     epel-release \
     nss_wrapper \
     httpd \
-    httpd-devel && \
+    httpd-devel 
+    openssl-devel 
+    libffi-devel && \
     #yum install -y --setopt=tsflags=nodocs --enablerepo=centosplus $INSTALL_PKGS && \
     #rpm -V $INSTALL_PKGS && \
     # Remove centos-logos (httpd dependency, ~20MB of graphics) to keep image size smaller
