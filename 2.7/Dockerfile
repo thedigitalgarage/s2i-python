@@ -17,7 +17,7 @@ LABEL io.k8s.description="Platform for building and running Python 2.7 applicati
 
 USER root
 
-RUN yum install -y centos-release-scl
+RUN yum install -y centos-release-scl && \
     #INSTALL_PKGS="python27 python27-python-devel python27-python-setuptools python27-python-pip epel-release nss_wrapper httpd httpd-devel" && \
     #yum install -y --setopt=tsflags=nodocs --enablerepo=centosplus $INSTALL_PKGS && \
     #rpm -V $INSTALL_PKGS && \
