@@ -27,8 +27,8 @@ RUN yum install -y centos-release-scl \
     epel-release \
     nss_wrapper \
     httpd \
-    httpd-devel 
-    openssl-devel 
+    httpd-devel \
+    openssl-devel \
     libffi-devel && \
     #yum install -y --setopt=tsflags=nodocs --enablerepo=centosplus $INSTALL_PKGS && \
     #rpm -V $INSTALL_PKGS && \
