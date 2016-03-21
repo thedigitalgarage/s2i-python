@@ -31,7 +31,16 @@ RUN yum install -y centos-release-scl && \
     httpd-devel \
     openssl-devel \
     libffi-devel && \
-    #rpm -V $INSTALL_PKGS && \
+    rpm -V python27 \
+    python27-python-devel \
+    python27-python-setuptools \
+    python27-python-pip \
+    epel-release \
+    nss_wrapper \
+    httpd \
+    httpd-devel \
+    openssl-devel \
+    libffi-devel && \
     #Remove centos-logos (httpd dependency, ~20MB of graphics) to keep image size smaller
     rpm -e --nodeps centos-logos && \
     yum clean all -y
