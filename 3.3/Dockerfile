@@ -26,7 +26,7 @@ RUN yum install -y centos-release-scl && \
     python33-python-devel \
     python33-python-setuptools \
     epel-release \
-    nss_wrapper 
+    nss_wrapper \
     httpd \
     httpd-devel \
     openssl-devel \
@@ -36,7 +36,7 @@ RUN yum install -y centos-release-scl && \
     python33-python-devel \
     python33-python-setuptools \
     epel-release \
-    nss_wrapper 
+    nss_wrapper \
     httpd \
     httpd-devel \
     openssl-devel \
