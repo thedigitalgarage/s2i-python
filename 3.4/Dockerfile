@@ -20,7 +20,7 @@ USER root
 RUN yum -y update
 
 RUN yum install -y centos-release-scl && \
-    yum install -y --setopt=tsflags=nodocs --enablerepo=centosplus \
+    yum install -y --nogpgcheck --setopt=tsflags=nodocs --enablerepo=centosplus \
     rh-python34 \
     rh-python34-python-devel \
     rh-python34-python-setuptools \
