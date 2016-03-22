@@ -36,8 +36,8 @@ RUN yum install -y centos-release-scl && \
     rh-python34-python-setuptools \
     rh-python34-python-pip \
     epel-release \
-    nss_wrapper 
-    httpd 
+    nss_wrapper \
+    httpd \
     httpd-devel \
     openssl-devel \
     libffi-devel && \
