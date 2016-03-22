@@ -31,6 +31,7 @@ RUN yum install -y centos-release-scl && \
     httpd-devel \
     openssl-devel \
     libffi-devel && \
+    
     rpm -V python27 \
     python27-python-devel \
     python27-python-setuptools \
