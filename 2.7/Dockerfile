@@ -20,7 +20,7 @@ USER root
 RUN yum -y update
 
 RUN yum install -y centos-release-scl && \
-    yum install -y --setopt=tsflags=nodocs --enablerepo=centosplus \
+    yum install -y --nogpgcheck --setopt=tsflags=nodocs --enablerepo=centosplus \
     python27 \
     python27-python-devel \
     python27-python-setuptools \
