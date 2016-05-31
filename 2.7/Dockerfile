@@ -14,8 +14,12 @@ LABEL io.k8s.description="Platform for building and running Python 2.7 applicati
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,python,python27,rh-python27"
 
+USER root
+
+RUN yum -y update
+
 RUN yum install -y centos-release-scl && \
-    INSTALL_PKGS="libjpeg-turbo libjpeg-turbo-devel python27 python27-python-devel python27-python-setuptools python27-python-pip epel-release nss_wrapper httpd httpd-devel" && \
+    INSTALL_PKGS="libjpeg-turbo libjpeg-turbo-devel python27 python27-python-devel python27-python-setuptools python27-python-pip epel-release nss_wrapper httpd httpd-devel openssl-devel libffi-devel” && \
     yum install -y --setopt=tsflags=nodocs --enablerepo=centosplus $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     # Remove centos-logos (httpd dependency, ~20MB of graphics) to keep image

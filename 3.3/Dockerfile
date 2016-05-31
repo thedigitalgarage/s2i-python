@@ -14,6 +14,11 @@ LABEL io.k8s.description="Platform for building and running Python 3.3 applicati
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,python,python33"
 
+
+USER root
+
+RUN yum -y update
+
 RUN yum install -y centos-release-scl && \
     INSTALL_PKGS="python33 python33-python-devel python33-python-setuptools epel-release nss_wrapper httpd httpd-devel" && \
     yum install -y --setopt=tsflags=nodocs --enablerepo=centosplus $INSTALL_PKGS && \
