@@ -28,10 +28,10 @@ LABEL summary="$SUMMARY" \
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,python,python27,rh-python27" \
       com.redhat.component="python27-docker" \
-      name="centos/python-27-centos7" \
+      name="thedigitalgarage/s2i-python:2.7" \
       version="2.7" \
       release="1" \
-      maintainer="SoftwareCollections.org <sclorg@redhat.com>"
+      maintainer="Digital Garage <support@thedigitalgarage.io>"
 
 USER root
 
@@ -50,6 +50,10 @@ RUN yum install -y centos-release-scl && \
 
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH.
 COPY ./s2i/bin/ $STI_SCRIPTS_PATH
+
+# Make sure the S2I scripts are executable
+RUN chmod +x $STI_SCRIPTS_PATH/*
+
 
 # Copy extra files to the image.
 COPY ./root/ /

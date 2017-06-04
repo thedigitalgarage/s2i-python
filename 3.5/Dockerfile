@@ -2,7 +2,7 @@
 # applications.
 FROM centos/s2i-base-centos7
 
-MAINTAINER SoftwareCollections.org <sclorg@redhat.com>
+MAINTAINER Digital Garage <support@thedigitalgarage.io>
 
 EXPOSE 8080
 
@@ -28,18 +28,18 @@ LABEL summary="$SUMMARY" \
       io.k8s.description="$SUMMARY" \
       io.k8s.display-name="Python 3.5" \
       io.openshift.expose-services="8080:http" \
-      io.openshift.tags="builder,python,python35,rh-python35" \
+      io.openshift.tags="builder,python,python35" \
       com.redhat.component="python35-docker" \
-      name="centos/python-35-centos7" \
+      name="thedigitalgarage/s2i-python:3.5" \
       version="3.5" \
       release="1" \
-      maintainer="SoftwareCollections.org <sclorg@redhat.com>"
+      maintainer="Digital Garage <support@thedigitalgarage.io>"
 
 RUN yum install -y centos-release-scl-rh && \
     yum-config-manager --enable centos-sclo-rh-testing && \
     INSTALL_PKGS="rh-python35 rh-python35-python-devel rh-python35-python-setuptools rh-python35-python-pip \
-	 nss_wrapper httpd24 httpd24-httpd-devel httpd24-mod_ssl httpd24-mod_auth_kerb httpd24-mod_ldap \
-         httpd24-mod_session atlas-devel gcc-gfortran libffi-devel libtool-ltdl" && \
+	  nss_wrapper httpd24 httpd24-httpd-devel httpd24-mod_ssl httpd24-mod_auth_kerb httpd24-mod_ldap \
+    httpd24-mod_session atlas-devel gcc-gfortran libffi-devel libtool-ltdl" && \
     yum install -y --setopt=tsflags=nodocs --enablerepo=centosplus $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     # Remove centos-logos (httpd dependency, ~20MB of graphics) to keep image
@@ -49,6 +49,9 @@ RUN yum install -y centos-release-scl-rh && \
 
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH.
 COPY ./s2i/bin/ $STI_SCRIPTS_PATH
+
+# Make sure the S2I scripts are executable
+RUN chmod +x $STI_SCRIPTS_PATH/*
 
 # Copy extra files to the image.
 COPY ./root/ /

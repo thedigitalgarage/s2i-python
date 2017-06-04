@@ -2,7 +2,7 @@
 # applications.
 FROM openshift/base-centos7
 
-MAINTAINER SoftwareCollections.org <sclorg@redhat.com>
+MAINTAINER Digital Garage <support@thedigitalgarage.io>
 
 EXPOSE 8080
 
@@ -26,8 +26,8 @@ RUN yum -y update
 
 RUN yum install -y centos-release-scl && \
     INSTALL_PKGS="python33 python33-python-devel python33-python-setuptools nss_wrapper httpd24 \
-        httpd24-httpd-devel httpd24-mod_ssl httpd24-mod_auth_kerb httpd24-mod_ldap httpd24-mod_session \
-	atlas-devel gcc-gfortran libffi-devel libtool-ltdl" && \
+    httpd24-httpd-devel httpd24-mod_ssl httpd24-mod_auth_kerb httpd24-mod_ldap httpd24-mod_session \
+	  atlas-devel gcc-gfortran libffi-devel libtool-ltdl" && \
     yum install -y --setopt=tsflags=nodocs --enablerepo=centosplus $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     # Remove centos-logos (httpd dependency, ~20MB of graphics) to keep image
@@ -37,6 +37,9 @@ RUN yum install -y centos-release-scl && \
 
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH.
 COPY ./s2i/bin/ $STI_SCRIPTS_PATH
+
+# Make sure the S2I scripts are executable
+RUN chmod +x $STI_SCRIPTS_PATH/*
 
 # Each language image can have 'contrib' a directory with extra files needed to
 # run and build the applications.
