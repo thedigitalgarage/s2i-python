@@ -16,13 +16,13 @@ resulting image with [Docker](http://docker.io) execute:
 
 *  **For RHEL based image**
     ```
-    $ s2i build https://github.com/openshift/s2i-python.git --context-dir=2.7/test/setup-test-app/ rhscl/python-27-rhel7 python-sample-app
+    $ s2i build https://github.com/sclorg/s2i-python-container.git --context-dir=2.7/test/setup-test-app/ rhscl/python-27-rhel7 python-sample-app
     $ docker run -p 8080:8080 python-sample-app
     ```
 
 *  **For CentOS based image**
     ```
-    $ s2i build https://github.com/openshift/s2i-python.git --context-dir=2.7/test/setup-test-app/ centos/python-27-centos7 python-sample-app
+    $ s2i build https://github.com/sclorg/s2i-python-container.git --context-dir=2.7/test/setup-test-app/ centos/python-27-centos7 python-sample-app
     $ docker run -p 8080:8080 python-sample-app
     ```
 
@@ -92,10 +92,16 @@ Environment variables
 To set these environment variables, you can place them as a key value pair into
 a `.s2i/environment` file inside your source code repository.
 
+* **APP_SCRIPT**
+
+    Used to run the application from a script file.
+    This should be a path to a script file (defaults to `app.sh` unless set to null) that will be
+    run to start the application.
+
 * **APP_FILE**
 
     Used to run the application from a Python script.
-    This should be a path to a Python file (defaults to `app.py`) that will be
+    This should be a path to a Python file (defaults to `app.py` unless set to null) that will be
     passed to the Python interpreter to start the application.
 
 * **APP_MODULE**
@@ -115,6 +121,14 @@ a `.s2i/environment` file inside your source code repository.
     can be read from there. For an example, see
     [setup-test-app](https://github.com/openshift/s2i-python/tree/master/2.7/test/setup-test-app).
 
+* **APP_HOME**
+
+    This variable can be used to specify a sub-directory in which the application to be run is contained.
+    The directory pointed to by this variable needs to contain `wsgi.py` (for Gunicorn) or `manage.py` (for Django).
+
+    If `APP_HOME` is not provided, the `assemble` and `run` scripts will use the application's root
+    directory.
+
 * **APP_CONFIG**
 
     Path to a valid Python file with a
@@ -129,6 +143,24 @@ a `.s2i/environment` file inside your source code repository.
 
     Set this variable to a non-empty value to inhibit the execution of 'manage.py migrate'
     when the produced image is run. This only affects Django projects.
+
+* **PIP_INDEX_URL**
+
+    Set this variable to use a custom index URL or mirror to download required packages
+    during build process. This only affects packages listed in requirements.txt.
+
+* **UPGRADE_PIP_TO_LATEST**
+
+    Set this variable to a non-empty value to have the 'pip' program be upgraded
+    to the most recent version before any Python packages are installed. If not
+    set it will use whatever the default version is included by the platform
+    for the Python version being used.
+
+* **WEB_CONCURRENCY**
+
+    Set this to change the default setting for the number of
+    [workers](http://docs.gunicorn.org/en/stable/settings.html#workers). By
+    default, this is set to the number of available cores times 4.
 
 Source repository layout
 ------------------------
@@ -178,10 +210,19 @@ following ways, in precedence order:
 
 * **Python script**
 
-  This is the most general way of executing your application. It will be used
-  in the case where you specify a path to a Python script via the `APP_FILE` environment
-  variable, defaulting to a file named `app.py` if it exists. The script is
-  passed to a regular Python interpreter to launch your application.
+  This would be used where you provide a Python code file for running you
+  application. It will be used in the case where you specify a path to a
+  Python script via the `APP_FILE` environment variable, defaulting to a
+  file named `app.py` if it exists. The script is passed to a regular
+  Python interpreter to launch your application.
+
+* **Application script file**
+
+  This is the most general way of executing your application. It will be
+  used in the case where you specify a path to an executable script file
+  via the `APP_SCRIPT` environment variable, defaulting to a file named
+  `app.sh` if it exists. The script is executed directly to launch your
+  application.
 
 Hot deploy
 ---------------------
