@@ -1,0 +1,103 @@
+{
+    "kind": "ImageStream",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "python",
+        "annotations": {
+            "openshift.io/display-name": "Python"
+        }
+    },
+    "spec": {
+        "tags": [
+            {
+                "name": "2.7",
+                "annotations": {
+                    "description": "Build and run Python 2.7 applications on CentOS 7. For more information about using this builder image, including Digital Garage considerations, see https://github.com/thedigitalgarage/s2i-python-container/blob/master/2.7/README.md.",
+                    "iconClass": "icon-python",
+                    "openshift.io/display-name": "Python 2.7",
+                    "sampleRepo": "https://github.com/thedigitalgarage/django-ex.git",
+                    "supports": "python:2.7,python",
+                    "tags": "builder,python",
+                    "version": "2.7"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "thedigitalgarage/s2i-python:2.7"
+                },
+                "generation": 8,
+                "importPolicy": {}
+            },
+            {
+                "name": "3.3",
+                "annotations": {
+                    "description": "Build and run Python 3.3 applications on CentOS 7. For more information about using this builder image, including Digital Garage considerations, see https://github.com/thedigitalgarage/s2i-python-container/blob/master/3.3/README.md.",
+                    "iconClass": "icon-python",
+                    "openshift.io/display-name": "Python 3.3",
+                    "sampleRepo": "https://github.com/thedigitalgarage/django-ex.git",
+                    "supports": "python:3.3,python",
+                    "tags": "hidden,builder,python",
+                    "version": "3.3"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "thedigitalgarage/s2i-python:3.3"
+                },
+                "generation": 2,
+                "importPolicy": {}
+            },
+            {
+                "name": "3.4",
+                "annotations": {
+                    "description": "Build and run Python 3.4 applications on CentOS 7. For more information about using this builder image, including Digital Garage considerations, see https://github.com/thedigitalgarage/s2i-python-container/blob/master/3.4/README.md.",
+                    "iconClass": "icon-python",
+                    "openshift.io/display-name": "Python 3.4",
+                    "sampleRepo": "https://github.com/thedigitalgarage/django-ex.git",
+                    "supports": "python:3.4,python",
+                    "tags": "builder,python",
+                    "version": "3.4"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "thedigitalgarage/s2i-python:3.4"
+                },
+                "generation": 8,
+                "importPolicy": {}
+            },
+            {
+                "name": "3.5",
+                "annotations": {
+                    "description": "Build and run Python 3.5 applications on CentOS 7. For more information about using this builder image, including Digital Garage considerations, see https://github.com/thedigitalgarage/s2i-python-container/blob/master/3.5/README.md.",
+                    "iconClass": "icon-python",
+                    "openshift.io/display-name": "Python 3.5",
+                    "sampleRepo": "https://github.com/thedigitalgarage/django-ex.git",
+                    "supports": "python:3.5,python",
+                    "tags": "builder,python",
+                    "version": "3.5"
+                },
+                "from": {
+                    "kind": "DockerImage",
+                    "name": "thedigitalgarage/s2i-python:3.5"
+                },
+                "generation": 8,
+                "importPolicy": {}
+            },
+            {
+                "name": "latest",
+                "annotations": {
+                    "description": "Build and run Python applications on CentOS 7. For more information about using this builder image, including Digital Garage considerations, see https://github.com/thedigitalgarage/s2i-python-container/blob/master/3.5/README.md.\n\nWARNING: By selecting this tag, your application will automatically update to use the latest version of Python available on Digital Garage, including major versions updates.",
+                    "iconClass": "icon-python",
+                    "openshift.io/display-name": "Python (Latest)",
+                    "sampleRepo": "https://github.com/thedigitalgarage/django-ex.git",
+                    "supports": "python",
+                    "tags": "builder,python"
+                },
+                "from": {
+                    "kind": "ImageStreamTag",
+                    "name": "3.5"
+                },
+                "generation": 1,
+                "importPolicy": {}
+            }
+        ]
+    }
+}
